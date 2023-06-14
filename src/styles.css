@@ -1,1 +1,9 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+  background-image: url('assets/3.jpg'); /* Replace 'image.jpg' with the actual file name and extension */
+  background-size: cover; /* Adjust the background size as needed */
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: calc(50% - 50vw) 50%;
+
+}
+
