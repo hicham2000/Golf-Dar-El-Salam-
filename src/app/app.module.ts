@@ -10,10 +10,15 @@ import {MatCardModule} from "@angular/material/card";
 import {MAT_DATE_LOCALE, MatNativeDateModule} from '@angular/material/core';
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
+import {FormsModule} from "@angular/forms";
+import { FilterPipe } from './filter.pipe';
+import { DatePipe } from '@angular/common';
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    FilterPipe
   ],
   imports: [
     BrowserModule,
@@ -25,10 +30,12 @@ import {MatInputModule} from "@angular/material/input";
     MatNativeDateModule,
     MatFormFieldModule,
     MatInputModule,
+    FormsModule,
+    HttpClientModule
 
   ],
   providers: [
-    {provide: MAT_DATE_LOCALE, useValue: 'en-GB'},
+    {provide: MAT_DATE_LOCALE, useValue: 'en-GB'},DatePipe,
   ],
   bootstrap: [AppComponent]
 })
