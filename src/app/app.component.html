@@ -5,7 +5,10 @@
       <img draggable="false" src="./assets/undraw_playing_golf_6it7.svg" >
     </div>
     <div class="col">
-
+    <div id="step" class="d-flex ">
+      <h1 class="btn ml-1 h1nameV1" [hidden]="listeCounter == 0 && reserverCounter == 0" (click)="accueil()"><fa-icon  [icon]="faBackward"></fa-icon> Accueil</h1>
+      <h1 class="h1nameV1" style="margin-left: 300px" [hidden]="reserverCounter == 0 || reserverCounter == 7 || reserverCounter==8 ">STEP {{reserverCounter}}/6</h1>
+    </div>
      <div id="accuill" class="text-center">
       <div id="switched">
         <div id="page1" class="pl-5 pr-5" [hidden]="pagereserve != 0 || pagecreate != 0 || pageliste != 0">
@@ -37,7 +40,7 @@
           </div>
 
           <div class="row mb-5" style="height: 200px; overflow-y: auto">
-            <table class="table table-striped">
+            <table class="table">
               <thead>
               <tr>
                 <th scope="col">Licence</th>
@@ -47,11 +50,15 @@
               </tr>
               </thead>
               <tbody>
-              <tr *ngFor="let reservation of reservations | filter:SearchDate :'date'">
-                <th scope="row">{{reservation.licence}}</th>
+              <tr *ngFor="let reservation of reservations.reverse() | filter:SearchDate :'date'">
+                <th scope="row">{{reservation.User_licence}}</th>
                 <td>{{reservation.date}}</td>
                 <td>{{reservation.heure}}</td>
-                <td>{{reservation.parcour}}</td>
+                <td *ngIf="reservation.parcours == 1">Rouge | 18</td>
+                <td *ngIf="reservation.parcours == 2">Bleu | 18</td>
+                <td *ngIf="reservation.parcours == 3">Rouge | 9</td>
+                <td *ngIf="reservation.parcours == 4">Bleu | 9</td>
+                <td *ngIf="reservation.parcours == 5">Vert | 9</td>
               </tr>
 
               </tbody>
@@ -142,7 +149,7 @@
 
         </div>
         <div id="pagereserve1" class="pb-5" [hidden]="pagereserve != 1">
-          <h1 class="mb-4">Parcours</h1>
+          <h1 id="par" class="mb-4 ">Parcours</h1>
           <div class="containerr">
             <div class="radio-tile-group">
               <div class="input-container" id="rouge" (click)="setparcourname('Rouge')">
@@ -191,6 +198,9 @@
                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
               </svg>
             </button>
+          </div>
+          <div *ngIf="extractedData.hasOwnProperty(licence)" style="width: 100%;height: 50px">
+            <h1 class="h1name">{{extractedData[licence]}}</h1>
           </div>
 
         </div>
@@ -292,16 +302,16 @@
               </tr>
               </thead>
               <tbody>
-              <tr *ngFor="let user of users">
-                <td class="d-flex justify-content-center text-center">
+              <tr *ngFor="let user of users.reverse()">
+                <td class="d-flex justify-content-center text-center" *ngIf="user.licence != licence">
                   <label class="container mw-100" >
                     <input  type="checkbox" [checked]="userselected.includes(user.licence)" (click)="addpartenaire(user.licence)" [disabled]="nbpartenaire == 3 && !userselected.includes(user.licence)">
                     <div class="checkmark"></div>
                   </label>
                 </td>
-                <td>{{user.licence}}</td>
-                <td>{{user.Name}} {{user.lastname}}</td>
-                <td>{{user.index}}</td>
+                <td *ngIf="user.licence != licence">{{user.licence}}</td>
+                <td *ngIf="user.licence != licence">{{user.nom}}</td>
+                <td *ngIf="user.licence != licence">{{user.user_index}}</td>
               </tr>
               </tbody>
             </table>
@@ -323,14 +333,14 @@
      </div>
 
       <div  class="d-flex justify-content-between align-items-end" style="height: 100%" >
-        <button class="btn ml-5 mb-2" [hidden]="(reserverCounter==0 && creerCounter==0 && listeCounter==0) || pagereserve == 8" [disabled]="reserverCounter==0 && creerCounter == 0 && listeCounter==0" (click)="back()"><h1><fa-icon   [icon]="faChevronLeft"></fa-icon></h1></button>
-        <button class="btn mr-5 mb-2" [hidden]="(reserverCounter==0 && creerCounter==0 && listeCounter==0) || pagereserve == 8"
+        <button class="btn ml-5 mb-2" [hidden]="(reserverCounter==0 && creerCounter==0 ) || pagereserve == 8" [disabled]="reserverCounter==0 && creerCounter == 0 && listeCounter==0" (click)="back()"><h1><fa-icon   [icon]="faChevronLeft"></fa-icon></h1></button>
+        <button class="btn mr-5 mb-2" [hidden]="(reserverCounter==0 && creerCounter==0 ) || pagereserve == 8"
                 [disabled]="(reserverCounter == 0 && creerCounter == 0 && listeCounter==0) ||
                             (parcourname == 'Vert' && parcourtrou == 18) ||
                              reserverCounter == 7 ||
                              creerCounter == 3 ||
                              listeCounter == 1 ||
-                             (pagereserve == 2 && !licence) ||
+                             (pagereserve == 2 && !extractedData.hasOwnProperty(licence)) ||
                              (pagereserve == 3 && selected == null) ||
                              (pagereserve == 4 && heureselected == '')"
                 (click)="next()">

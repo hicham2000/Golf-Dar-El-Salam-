@@ -1,10 +1,11 @@
-import {Component, ElementRef, QueryList, ViewChild, ViewChildren} from '@angular/core';
+import {Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import { faBackward } from '@fortawesome/free-solid-svg-icons';
 import { DatePipe } from '@angular/common';
 import {RestapisService} from "./restapis.service";
 import {NgForm} from "@angular/forms";
-
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -12,52 +13,41 @@ import {NgForm} from "@angular/forms";
   styleUrls: ['./app.component.css'],
 
 })
-export class AppComponent {
-  constructor(private datePipe: DatePipe,private restapi:RestapisService) {
+export class AppComponent implements OnInit{
+
+  ngOnInit() {
+    this.restapi.getReservation().subscribe(data=>{
+      this.reservations = data;
+    })
+
+    this.restapi.getUtilisateurs().subscribe(data =>{
+      this.users = data;
+      for (let i = 0; i < this.users.length; i++) {
+        const item = this.users[i];
+        this.extractedData[item.licence] = item.nom;
+      }
+     console.log(this.extractedData)
+
+    })
   }
 
+  extractedData: { [key: number ]: string } = {};
+
+  constructor(private datePipe: DatePipe,private restapi:RestapisService) {
+  }
+  faBackward=faBackward;
   parcourname:string = "Rouge";
   parcourtrou:number = 18;
-  licence!:number | null;
+  licence:number = 0;
   selected!: Date | null;
   heureselected:string = '';
   caddie:boolean = false;
   car:boolean = false;
   parcour!:number;
-  reservations:{licence:number,date:string,heure:string,parcour:string}[] =[{
-    licence: 344636,
-    date: '15 JUN 2023',
-    heure: '10:15',
-    parcour: 'Rouge | 18 trous'
-  },{
-    licence: 344636,
-    date: '15 JUN 2023',
-    heure: '10:15',
-    parcour: 'Rouge | 18 trous'
-  },{
-    licence: 344636,
-    date: '17 JUN 2023',
-    heure: '10:15',
-    parcour: 'Rouge | 18 trous'
-  },{
-    licence: 344636,
-    date: '21 JUN 2023',
-    heure: '10:15',
-    parcour: 'Rouge | 18 trous'
-  },{
-    licence: 344636,
-    date: '21 JUN 2023',
-    heure: '10:15',
-    parcour: 'Rouge | 18 trous'
-  }];
+  reservations:any = [];
 
-  users:{licence:number,Name:string,lastname:string;index:number}[] = [{licence: 32324, Name:'Taib' , lastname:'Hicham',index:11.1},
-    {licence: 546654, Name:"Taib" , lastname:"Hicham",index:11.1},
-    {licence: 4566, Name:"Taib" , lastname:"Hicham",index:11.1},
-    {licence: 456, Name:"Taib" , lastname:"Hicham",index:11.1},
-    {licence: 4563, Name:"Taib" , lastname:"Hicham",index:11.1},
-    {licence: 4753, Name:"Taib" , lastname:"Hicham",index:11.1},
-    {licence: 45633, Name:"Taib" , lastname:"Hicham",index:11.1}]
+
+  users:any = []
 
   reserver:boolean = false;
   creerCompte:boolean = false;
@@ -261,6 +251,7 @@ export class AppComponent {
         vehicule:this.carconst
       }
       this.restapi.addReservation(reservation).subscribe();
+      this.reservations.push(reservation);
 
     }
     else if (this.userselected.length == 1) {
@@ -282,6 +273,7 @@ export class AppComponent {
         partenaire_1:this.userselected[0]
       }
       this.restapi.addReservation(reservation).subscribe();
+      this.reservations.push(reservation);
 
     }
     else if (this.userselected.length == 2) {
@@ -306,6 +298,7 @@ export class AppComponent {
         partenaire_2:this.userselected[1]
       }
       this.restapi.addReservation(reservation).subscribe();
+      this.reservations.push(reservation);
 
     }
     else if (this.userselected.length == 3) {
@@ -332,15 +325,17 @@ export class AppComponent {
         partenaire_3:this.userselected[2]
       }
       this.restapi.addReservation(reservation).subscribe();
+      this.reservations.push(reservation);
 
     }
 
   }
 
+
   accueil(){
     this.parcourname = "Rouge";
     this.parcourtrou= 18;
-    this.licence = null;
+    this.licence = 0;
     this.selected = null;
     this.heureselected = '';
     this.caddie = false;
