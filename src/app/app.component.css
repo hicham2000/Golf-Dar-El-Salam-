@@ -781,6 +781,12 @@ background-color: rgba(242, 233, 233, 0.58);
   letter-spacing: 2px;
 }
 
+.error{
+  color: #007D17;
+  font-weight: bolder;
+  letter-spacing: 2px;
+}
+
 
 
 

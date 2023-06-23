@@ -206,10 +206,17 @@
         </div>
         <div id="pagereserve3" class="pl-5 pr-5" [hidden]="pagereserve != 3" style="width: 100%">
 
-              <div class="d-flex justify-content-center" style="width: 100%">
-                <mat-card class="demo-inline-calendar-card" >
-                  <mat-calendar [(selected)]="selected"></mat-calendar>
-                </mat-card>
+              <div class="text-center" style="width: 100%">
+<!--                <mat-card class="demo-inline-calendar-card" >-->
+<!--                  <mat-calendar  [(selected)]="selected"></mat-calendar>-->
+<!--                </mat-card>-->
+                <mat-form-field class="">
+                  <input matInput  [matDatepicker]="picker"   [min]="minDate" placeholder="Choose a date" [(ngModel)]="selected" [matDatepickerFilter]="dateFilter">
+                  <mat-datepicker-toggle  matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker  ></mat-datepicker>
+                </mat-form-field>
+
+<!--                <h3 class="error" *ngIf="dateexict">{{extractedData[licence]}} avait une réservation à cette date.</h3>-->
 
               </div>
 
@@ -342,7 +349,8 @@
                              listeCounter == 1 ||
                              (pagereserve == 2 && !extractedData.hasOwnProperty(licence)) ||
                              (pagereserve == 3 && selected == null) ||
-                             (pagereserve == 4 && heureselected == '')"
+                             (pagereserve == 4 && heureselected == '') ||
+                             dateexict"
                 (click)="next()">
           <h1>
             <fa-icon  [icon]="faChevronRight"></fa-icon>

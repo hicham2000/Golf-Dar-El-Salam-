@@ -6,6 +6,7 @@ import { DatePipe } from '@angular/common';
 import {RestapisService} from "./restapis.service";
 import {NgForm} from "@angular/forms";
 import { map } from 'rxjs/operators';
+import {DateFilterFn, MatDatepicker} from "@angular/material/datepicker";
 
 @Component({
   selector: 'app-root',
@@ -18,6 +19,8 @@ export class AppComponent implements OnInit{
   ngOnInit() {
     this.restapi.getReservation().subscribe(data=>{
       this.reservations = data;
+
+
     })
 
     this.restapi.getUtilisateurs().subscribe(data =>{
@@ -26,15 +29,61 @@ export class AppComponent implements OnInit{
         const item = this.users[i];
         this.extractedData[item.licence] = item.nom;
       }
-     console.log(this.extractedData)
+
 
     })
+
   }
 
   extractedData: { [key: number ]: string } = {};
-
   constructor(private datePipe: DatePipe,private restapi:RestapisService) {
+    this.minDate = new Date(); // Set the minimum selectable date to today's date
+
+
   }
+  userreservationdate:string[] = [];
+  dateFilter: DateFilterFn<any>= (date: Date): boolean | any => {
+    this.userreservationdate = [];
+    for(let i=0;i<this.reservations.length ; i++){
+      if(this.reservations[i].User_licence == this.licence){
+        this.userreservationdate.push(this.reservations[i].date.toUpperCase());
+      }
+    }
+    console.log(this.userreservationdate);
+    const day = date.getDate();
+    const month = date.getMonth();
+    const year = date.getFullYear();
+
+    // Disable the date 30 JUN 2023
+    const datestring = new Date(year, month, day);
+    // @ts-ignore
+    const stringdate = this.datePipe.transform(datestring, 'dd MMM yyyy').toUpperCase();
+
+    return !(this.userreservationdate.includes(stringdate));
+
+  }
+
+  // checkdate(){
+  //
+  //
+  //   console.log(this.userreservationdate);
+  //
+  //   const formattedDate: string = this.datePipe.transform(this.selected, 'dd MMM yyyy') || '';
+  //   for (let i = 0; i<this.userreservationdate.length ; i++){
+  //     if (this.userreservationdate[i] == formattedDate){
+  //       this.dateexict = true;
+  //       break;
+  //     }
+  //     else {
+  //       this.dateexict = false;
+  //     }
+  //   }
+  //
+  //   this.userreservationdate = [];
+  // }
+
+
+  disabledDates: string[] = ["30 JUN 2023", "24 JUN 2023"];
   faBackward=faBackward;
   parcourname:string = "Rouge";
   parcourtrou:number = 18;
@@ -47,12 +96,12 @@ export class AppComponent implements OnInit{
   reservations:any = [];
 
 
-  users:any = []
+  users:any = [];
 
   reserver:boolean = false;
   creerCompte:boolean = false;
   liste:boolean = false;
-
+  minDate = new Date();
 
 
 
@@ -200,6 +249,13 @@ export class AppComponent implements OnInit{
       this.userselected.push(licence);
     }
   }
+
+  dateexict:boolean = false;
+
+
+
+
+
 
   caddieconst:number = 0;
   carconst:number=0;
@@ -352,6 +408,7 @@ export class AppComponent implements OnInit{
     this.SearchDate = "";
     this.nbpartenaire = 0;
     this.userselected = [];
+    this.dateexict = false;
 
 
     this.timeValues = this.apmidi;
