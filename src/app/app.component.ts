@@ -2,6 +2,9 @@ import {Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren} from 
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { faBackward } from '@fortawesome/free-solid-svg-icons';
+import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+import { faFile } from '@fortawesome/free-solid-svg-icons';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { DatePipe } from '@angular/common';
 import {RestapisService} from "./restapis.service";
 import {NgForm} from "@angular/forms";
@@ -83,7 +86,7 @@ export class AppComponent implements OnInit{
   // }
 
 
-  disabledDates: string[] = ["30 JUN 2023", "24 JUN 2023"];
+  editpage:number = 0;
   faBackward=faBackward;
   parcourname:string = "Rouge";
   parcourtrou:number = 18;
@@ -94,6 +97,7 @@ export class AppComponent implements OnInit{
   car:boolean = false;
   parcour!:number;
   reservations:any = [];
+  editview:number = 0;
 
 
   users:any = [];
@@ -104,9 +108,11 @@ export class AppComponent implements OnInit{
   minDate = new Date();
 
 
-
+  faTrash=faTrash;
+  faFile=faFile;
   faChevronRight = faChevronRight;
   faChevronLeft=faChevronLeft;
+  faPenToSquare = faPenToSquare;
   reserverCounter: number = 0;
   creerCounter:number = 0;
   listeCounter:number =0;
@@ -409,6 +415,8 @@ export class AppComponent implements OnInit{
     this.nbpartenaire = 0;
     this.userselected = [];
     this.dateexict = false;
+    this.editpage =0;
+    this.editview = 0;
 
 
     this.timeValues = this.apmidi;
@@ -419,6 +427,39 @@ export class AppComponent implements OnInit{
 
 
 
+
+  }
+
+selectedToEdit:any;
+  editreservation(reservation:any){
+    this.editpage = 1;
+    this.pageliste = 0;
+    this.selectedToEdit = reservation;
+  }
+
+  viewreservation(reservation:any){
+    this.selectedToEdit = reservation;
+    this.pageliste = 0;
+    this.editview = 1;
+  }
+
+
+  getTimeDifference(timeToCompare:any,dateString:any): boolean {
+    const date = new Date(dateString);
+    const today = new Date();
+
+    if(today.toDateString() === date.toDateString()){
+      const currentTime = new Date();
+      const comparisonTime = new Date(currentTime.toDateString() + " " + timeToCompare);
+      const timeDifference = comparisonTime.getTime() - currentTime.getTime();
+
+      const timeDifferenceInHours = timeDifference / (1000 * 60 * 60);
+      if (timeDifferenceInHours <= 1 && timeDifferenceInHours >0){
+        return true;
+      }
+
+    }
+    return false;
 
   }
 }

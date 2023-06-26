@@ -6,12 +6,12 @@
     </div>
     <div class="col">
     <div id="step" class="d-flex ">
-      <h1 class="btn ml-1 h1nameV1" [hidden]="listeCounter == 0 && reserverCounter == 0" (click)="accueil()"><fa-icon  [icon]="faBackward"></fa-icon> Accueil</h1>
+      <h1 class="btn ml-1 h1nameV1" [hidden]="listeCounter == 0 && reserverCounter == 0 " (click)="accueil()"><fa-icon  [icon]="faBackward"></fa-icon> Accueil</h1>
       <h1 class="h1nameV1" style="margin-left: 300px" [hidden]="reserverCounter == 0 || reserverCounter == 7 || reserverCounter==8 ">STEP {{reserverCounter}}/6</h1>
     </div>
      <div id="accuill" class="text-center">
       <div id="switched">
-        <div id="page1" class="pl-5 pr-5" [hidden]="pagereserve != 0 || pagecreate != 0 || pageliste != 0">
+        <div id="page1" class="pl-5 pr-5" [hidden]="pagereserve != 0 || pagecreate != 0 || pageliste != 0 || editpage != 0 || editview != 0">
           <div class="row mt-3 mb-3" (click)="ReserverPage()">
             <button class="btn col">Réserver un départ</button>
           </div>
@@ -39,7 +39,7 @@
 
           </div>
 
-          <div class="row mb-5" style="height: 200px; overflow-y: auto">
+          <div class="row mb-5" style="height: 220px; overflow-y: auto">
             <table class="table">
               <thead>
               <tr>
@@ -47,6 +47,7 @@
                 <th scope="col">Date</th>
                 <th scope="col">Heure</th>
                 <th scope="col">Parcour</th>
+                <th scope="col"></th>
               </tr>
               </thead>
               <tbody>
@@ -59,6 +60,11 @@
                 <td *ngIf="reservation.parcours == 3">Rouge | 9</td>
                 <td *ngIf="reservation.parcours == 4">Bleu | 9</td>
                 <td *ngIf="reservation.parcours == 5">Vert | 9</td>
+                <td>
+                  <button class="btn pl-1 pr-1" (click)="viewreservation(reservation)"><fa-icon   [icon]="faFile"></fa-icon></button>
+                  <button class="btn pl-1 pr-1" (click)="editreservation(reservation)"><fa-icon  [icon]="faPenToSquare"></fa-icon></button>
+                  <button class="btn pl-1 pr-1" [disabled]="getTimeDifference(reservation.heure,reservation.date)"><fa-icon   [icon]="faTrash"></fa-icon></button>
+                </td>
               </tr>
 
               </tbody>
@@ -66,6 +72,72 @@
           </div>
 
 
+        </div>
+        <div id="pageedit" [hidden]="editpage != 1">
+          <div class="row mb-5" style="height: 220px; overflow-y: auto">
+            <table class="table" *ngIf="editpage == 1">
+              <tr >
+                <th >Licence : </th>
+                <td>{{selectedToEdit.User_licence}}</td>
+              </tr>
+              <tr >
+                <th >Licence : </th>
+                <td>{{selectedToEdit.User_licence}}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div id="pageview" [hidden]="editview != 1">
+          <div class="row mb-5" style="height: 220px; overflow-y: auto">
+            <table class="table" *ngIf="editview == 1">
+              <tr >
+                <th >Licence : </th>
+                <td>{{selectedToEdit.User_licence}}</td>
+              </tr>
+              <tr >
+                <th >Parcour : </th>
+                <td *ngIf="selectedToEdit.parcours == 1">Rouge | 18</td>
+                <td *ngIf="selectedToEdit.parcours == 2">Bleu | 18</td>
+                <td *ngIf="selectedToEdit.parcours == 3">Rouge | 9</td>
+                <td *ngIf="selectedToEdit.parcours == 4">Bleu | 9</td>
+                <td *ngIf="selectedToEdit.parcours == 5">Vert | 9</td>
+              </tr>
+              <tr >
+                <th >Date : </th>
+                <td>{{selectedToEdit.date}}</td>
+              </tr>
+              <tr >
+                <th >Heure : </th>
+                <td>{{selectedToEdit.heure}}</td>
+              </tr>
+              <tr >
+                <th >Caddie : </th>
+                <td *ngIf="selectedToEdit.caddie == 0">Non</td>
+                <td *ngIf="selectedToEdit.caddie == 1">Oui</td>
+              </tr>
+              <tr >
+                <th >Vehicule : </th>
+                <td *ngIf="selectedToEdit.vehicule == 0">Non</td>
+                <td *ngIf="selectedToEdit.vehicule == 1">Oui</td>
+              </tr>
+              <tr >
+                <th >Partenaire 1 : </th>
+                <td *ngIf="selectedToEdit.partenaire_1 == 0">Non</td>
+                <td *ngIf="selectedToEdit.partenaire_1 != 0">{{extractedData[selectedToEdit.partenaire_1]}}</td>
+              </tr>
+              <tr >
+                <th >Partenaire 2 : </th>
+                <td *ngIf="selectedToEdit.partenaire_2 == 0">Non</td>
+                <td *ngIf="selectedToEdit.partenaire_2 != 0">{{extractedData[selectedToEdit.partenaire_2]}}</td>
+              </tr>
+              <tr >
+                <th >Partenaire 1 : </th>
+                <td *ngIf="selectedToEdit.partenaire_3 == 0">Non</td>
+                <td *ngIf="selectedToEdit.partenaire_3 != 0">{{extractedData[selectedToEdit.partenaire_3]}}</td>
+              </tr>
+
+            </table>
+          </div>
         </div>
 
         <div id="pagecreate1" class="pl-5 pr-5" [hidden]="pagecreate != 1">
