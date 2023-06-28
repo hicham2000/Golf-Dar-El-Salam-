@@ -10,6 +10,8 @@ export class RestapisService {
 
   Reservation:string = "http://localhost:8080/Reservations";
   utilisateurs:string = "http://localhost:8080/utilisateurs";
+  deletereservationurl:string = "http://localhost:8080/Reservations/";
+  updatereservationurl:string = "http://localhost:8080/Reservations/";
 
   addReservation(body:any){
   return this.http.post(this.Reservation,body);
@@ -21,5 +23,13 @@ export class RestapisService {
 
   getUtilisateurs(){
     return this.http.get(this.utilisateurs);
+  }
+
+  deleteReservation(id:number){
+    return this.http.delete(this.deletereservationurl+id);
+  }
+
+  updatereservation(id:number, reservation:any){
+    return this.http.put(this.updatereservationurl+id,reservation);
   }
 }

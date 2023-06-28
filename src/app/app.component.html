@@ -63,7 +63,7 @@
                 <td>
                   <button class="btn pl-1 pr-1" (click)="viewreservation(reservation)"><fa-icon   [icon]="faFile"></fa-icon></button>
                   <button class="btn pl-1 pr-1" (click)="editreservation(reservation)"><fa-icon  [icon]="faPenToSquare"></fa-icon></button>
-                  <button class="btn pl-1 pr-1" [disabled]="getTimeDifference(reservation.heure,reservation.date)"><fa-icon   [icon]="faTrash"></fa-icon></button>
+                  <button class="btn pl-1 pr-1" [disabled]="getTimeDifference(reservation.heure,reservation.date)" (click)="delete(reservation.id)"><fa-icon   [icon]="faTrash"></fa-icon></button>
                 </td>
               </tr>
 
@@ -73,18 +73,50 @@
 
 
         </div>
-        <div id="pageedit" [hidden]="editpage != 1">
-          <div class="row mb-5" style="height: 220px; overflow-y: auto">
-            <table class="table" *ngIf="editpage == 1">
-              <tr >
-                <th >Licence : </th>
-                <td>{{selectedToEdit.User_licence}}</td>
-              </tr>
-              <tr >
-                <th >Licence : </th>
-                <td>{{selectedToEdit.User_licence}}</td>
-              </tr>
-            </table>
+        <div  [hidden]="editpage != 1" style="width: 100%;" >
+          <div class="d-flex justify-content-center  ml-3 pl-4 "  style="width: 100%;">
+            <div id="time"   style="width: 400px;">
+              <div class="radio-input text-center" style="width: 80%">
+                <label style="width: 200px;" (click)="heure(1)">
+                  <input type="radio" style="width: 100px" name="value-radio-100" value="value-1" >
+                  <span>Tout</span>
+                </label>
+                <label style="width: 200px;" (click)="heure(2)">
+                  <input type="radio"  name="value-radio-100" value="value-2">
+                  <span>Matin</span>
+                </label>
+                <label style="width: 200px;" (click)="heure(3)">
+                  <input type="radio"  name="value-radio-100" value="value-3">
+                  <span>Midi</span>
+                </label>
+                <label style="width: 200px;" (click)="heure(4)">
+                  <input type="radio"  name="value-radio-100" value="value-4">
+                  <span>Ap.midi</span>
+                </label>
+                <span class="selection"></span>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+        <div id="pageedit" [hidden]="editpage != 1" style="height: 220px;  overflow-y: auto; width: 100%;">
+          <div class="pagereserve4"  >
+
+            <div  class="radio-inputs  mw-100"  >
+              <div  style="width: 100%">
+                <label *ngFor="let time of timeValues" class="text-center" (click)="setheure(time)">
+                  <input class='radio-input' type="radio" name="heure" [checked]="time == heureselected">
+                  <span class="radio-tile">
+					     <span class="radio-label ">
+                <span style="font-size: 25px; font-weight: bolder">{{time.split(":")[0]}}</span><br>
+               <span style="font-size: 25px; font-weight: bolder">{{time.split(":")[1]}}</span>
+              </span>
+				      </span>
+                </label>
+              </div>
+
+            </div>
           </div>
         </div>
         <div id="pageview" [hidden]="editview != 1">
@@ -320,7 +352,7 @@
           </div>
 
         </div>
-        <div id="pagereserve4" [hidden]="pagereserve != 4" style="height: 220px;  overflow-y: auto; width: 100%;">
+        <div class="pagereserve4" [hidden]="pagereserve != 4" style="height: 220px;  overflow-y: auto; width: 100%;">
 
           <div  class="radio-inputs  mw-100"  >
             <div  style="width: 100%">
@@ -427,6 +459,15 @@
           <h1>
             <fa-icon  [icon]="faChevronRight"></fa-icon>
           </h1>
+        </button>
+        <button class="btn  ml-5 mb-2" [hidden]="editview == 0 && editpage == 0"  (click)="backtolist()"><h1><fa-icon   [icon]="faChevronLeft"></fa-icon></h1></button>
+        <button class="btn mr-5 mb-2" [hidden]="editview == 0" disabled>
+          <h1>
+            <fa-icon  [icon]="faChevronRight"></fa-icon>
+          </h1>
+        </button>
+        <button class="btn mr-5 mb-2 btn-success pl-3 pr-3 pt-1 pb-1 mb-3" [hidden]="editpage== 0" [disabled]="heureselected == ''" (click)="update()">
+          valider
         </button>
       </div>
     </div>

@@ -449,7 +449,7 @@ background-color: rgba(242, 233, 233, 0.58);
 
 
 /* ----------------------------------------- */
-#pagereserve4 div .radio-inputs {
+.pagereserve4 div .radio-inputs {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -460,42 +460,42 @@ background-color: rgba(242, 233, 233, 0.58);
   user-select: none;
 }
 
-#pagereserve4 .radio-inputs > * {
+.pagereserve4 .radio-inputs > * {
   margin: 6px;
 }
 
-#pagereserve4 div .radio-input:checked + .radio-tile {
+.pagereserve4 div .radio-input:checked + .radio-tile {
   border-color: #007D17;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
   color: #007D17;
 }
 
-#pagereserve4 div .radio-input:checked + .radio-tile:before {
+.pagereserve4 div .radio-input:checked + .radio-tile:before {
   transform: scale(1);
   opacity: 1;
   background-color: #007D17;
   border-color: #007D17;
 }
 
-#pagereserve4 div .radio-input:checked + .radio-tile .radio-icon svg {
+.pagereserve4 div .radio-input:checked + .radio-tile .radio-icon svg {
   fill: #007D17;
 }
 
-#pagereserve4 div .radio-input:checked + .radio-tile .radio-label {
+.pagereserve4 div .radio-input:checked + .radio-tile .radio-label {
   color: #007D17;
 }
 
-#pagereserve4 div .radio-input:focus + .radio-tile {
+.pagereserve4 div .radio-input:focus + .radio-tile {
   border-color: #007D17;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1), 0 0 0 4px #b5c9fc;
 }
 
-#pagereserve4 div .radio-input:focus + .radio-tile:before {
+.pagereserve4 div .radio-input:focus + .radio-tile:before {
   transform: scale(1);
   opacity: 1;
 }
 
-#pagereserve4 .radio-tile {
+.pagereserve4 .radio-tile {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -511,7 +511,7 @@ background-color: rgba(242, 233, 233, 0.58);
   position: relative;
 }
 
-#pagereserve4 .radio-tile:before {
+.pagereserve4 .radio-tile:before {
   content: "";
   position: absolute;
   display: block;
@@ -527,29 +527,29 @@ background-color: rgba(242, 233, 233, 0.58);
   transition: 0.25s ease;
 }
 
-#pagereserve4 .radio-tile:hover {
+.pagereserve4 .radio-tile:hover {
   border-color: #007D17;
 }
 
-#pagereserve4 .radio-tile:hover:before {
+.pagereserve4 .radio-tile:hover:before {
   transform: scale(1);
   opacity: 1;
 }
 
-#pagereserve4 .radio-icon svg {
+.pagereserve4 .radio-icon svg {
   width: 2rem;
   height: 2rem;
   fill: #494949;
 }
 
-#pagereserve4 .radio-label {
+.pagereserve4 .radio-label {
   color: #707070;
   transition: 0.375s ease;
   text-align: center;
   font-size: 13px;
 }
 
-#pagereserve4 div .radio-input {
+.pagereserve4 div .radio-input {
   clip: rect(0 0 0 0);
   -webkit-clip-path: inset(100%);
   clip-path: inset(100%);

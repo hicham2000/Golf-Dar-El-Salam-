@@ -435,6 +435,7 @@ selectedToEdit:any;
     this.editpage = 1;
     this.pageliste = 0;
     this.selectedToEdit = reservation;
+    console.log(reservation)
   }
 
   viewreservation(reservation:any){
@@ -461,5 +462,34 @@ selectedToEdit:any;
     }
     return false;
 
+  }
+
+  delete(id:number){
+    this.restapi.deleteReservation(id).subscribe();
+    // @ts-ignore
+    const indexToDelete = this.reservations.findIndex(record => record.id === id);
+
+    if (indexToDelete !== -1) {
+      this.reservations.splice(indexToDelete, 1);
+    }
+  }
+
+  backtolist(){
+    if(this.editview != 0){
+      this.editview = 0;
+      this.pageliste = 1;
+    }
+    else if (this.editpage != 0){
+      this.editpage = 0;
+      this.pageliste = 1;
+    }
+  }
+
+
+  update(){
+    this.selectedToEdit.heure = this.heureselected;
+    this.restapi.updatereservation(this.selectedToEdit.id,this.selectedToEdit).subscribe();
+    this.editpage = 0;
+    this.pageliste = 1;
   }
 }
