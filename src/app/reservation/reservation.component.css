@@ -1,0 +1,792 @@
+*{
+  padding: 0;
+  margin: 0;
+}
+.content{
+  background-color: rgba(242, 233, 233, 0.58);
+  width: 80vw;
+  height: 60vh;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+}
+
+#step{
+  position: absolute;
+  top: 3%;
+  left: 1%;
+}
+
+#switched{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+}
+
+#ele{
+  width: 100%;
+  height: 100%;
+}
+
+#left-image{
+  position: relative;
+  height: 100%;
+
+}
+
+#left-image img{
+  width: 100%;
+  height: 100%;
+
+}
+
+
+
+#page1 button{
+  background-color: #007D17;
+  color: white;
+  width: 400px;
+  height: 50px;
+}
+
+
+
+
+
+
+.containerr {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.radio-tile-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.radio-tile-group .input-container {
+  position: relative;
+  height: 80px;
+  width: 80px;
+  margin: 0.5rem;
+}
+
+.radio-tile-group .input-container .radio-button {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  cursor: pointer;
+}
+
+.radio-tile-group #rouge .radio-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  border: 2px solid #C60000;
+  border-radius: 5px;
+  padding: 1rem;
+  transition: transform 300ms ease;
+}
+.radio-tile-group #bleu .radio-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  border: 2px solid #0D00A0;
+  border-radius: 5px;
+  padding: 1rem;
+  transition: transform 300ms ease;
+}
+.radio-tile-group #vert .radio-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  border: 2px solid #007D17;
+  border-radius: 5px;
+  padding: 1rem;
+  transition: transform 300ms ease;
+}
+
+.radio-tile-group #rouge .radio-tile-label {
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #C60000;
+}
+
+.radio-tile-group #bleu .radio-tile-label {
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #0D00A0;
+}
+
+.radio-tile-group #vert .radio-tile-label {
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #007D17;
+}
+
+.radio-tile-group #rouge .radio-button:checked + .radio-tile {
+  background-color: #C60000;
+  border: 2px solid #C60000;
+  color: white;
+  transform: scale(1.1, 1.1);
+}
+
+
+
+.radio-tile-group #rouge .radio-button:checked + .radio-tile .radio-tile-label {
+  color: white;
+  background-color: #C60000;
+}
+.radio-tile-group #bleu .radio-button:checked + .radio-tile {
+  background-color: #0D00A0;
+  border: 2px solid #0D00A0;
+  color: white;
+  transform: scale(1.1, 1.1);
+}
+
+
+
+.radio-tile-group #bleu .radio-button:checked + .radio-tile .radio-tile-label {
+  color: white;
+  background-color: #0D00A0;
+}
+.radio-tile-group #vert .radio-button:checked + .radio-tile {
+  background-color: #007D17;
+  border: 2px solid #007D17;
+  color: white;
+  transform: scale(1.1, 1.1);
+}
+
+
+
+.radio-tile-group #vert .radio-button:checked + .radio-tile .radio-tile-label {
+  color: white;
+  background-color: #007D17;
+}
+
+
+
+
+#pagereserve1 .radio-input {
+  display: flex;
+  flex-direction: row;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+#pagereserve1 .radio-input input[type="radio"] {
+  display: none;
+}
+
+#pagereserve1 .radio-input label {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ccc;
+  background-color: #ffffff;
+  border-radius: 5px;
+  margin-right: 12px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease-in-out;
+}
+
+#pagereserve1 .radio-input label:before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #fff;
+  border: 2px solid #ccc;
+  transition: all 0.3s ease-in-out;
+}
+
+#pagereserve1 .radio-input input[type="radio"]:checked + label:before {
+  background-color: green;
+  top: 0;
+}
+
+#pagereserve1 .radio-input input[type="radio"]:checked + label {
+  background-color: royalblue;
+  color: #fff;
+  border-color: rgb(129, 235, 129);
+  animation: radio-translate 0.5s ease-in-out;
+}
+
+@keyframes radio-translate {
+  0% {
+    transform: translateX(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+
+#pagereserve1 .bigger-icon {
+  font-size: 40px; /* Adjust the size as per your preference */
+}
+
+
+
+
+/*      -----------------------------------------  */
+/* From uiverse.io by @satyamchaudharydev */
+/* removing default style of button */
+
+.pagecreate1Form button {
+  border: none;
+  background: none;
+  color: #8b8ba7;
+}
+/* styling of whole input container */
+.pagecreate1Form {
+  --timing: 0.3s;
+  --width-of-input: 200px;
+  --height-of-input: 40px;
+  --border-height: 2px;
+  --input-bg: #fff;
+  --border-color: #007D17;
+  --border-radius: 30px;
+  --after-border-radius: 1px;
+  position: relative;
+  width: var(--width-of-input);
+  height: var(--height-of-input);
+  display: flex;
+  align-items: center;
+  padding-inline: 0.8em;
+  border-radius: var(--border-radius);
+  transition: border-radius 0.5s ease;
+  background: var(--input-bg,#fff);
+}
+/* styling of Input */
+.input {
+  font-size: 0.9rem;
+  background-color: transparent;
+  width: 100%;
+  height: 100%;
+  padding-inline: 0.5em;
+  padding-block: 0.7em;
+  border: none;
+}
+/* styling of animated border */
+.pagecreate1Form:before {
+  content: "";
+  position: absolute;
+  background: var(--border-color);
+  transform: scaleX(0);
+  transform-origin: center;
+  width: 100%;
+  height: var(--border-height);
+  left: 0;
+  bottom: 0;
+  border-radius: 1px;
+  transition: transform var(--timing) ease;
+}
+/* Hover on Input */
+.pagecreate1Form:focus-within {
+  border-radius: var(--after-border-radius);
+}
+
+.pagecreate1Form input:focus {
+  outline: none;
+}
+/* here is code of animated border */
+.pagecreate1Form:focus-within:before {
+  transform: scale(1);
+}
+/* styling of close button */
+/* == you can click the close button to remove text == */
+.pagecreate1Form .reset {
+  border: none;
+  background: none;
+  opacity: 0;
+  visibility: hidden;
+}
+/* close button shown when typing */
+.pagecreate1Form input:not(:placeholder-shown) ~ .reset {
+  opacity: 1;
+  visibility: visible;
+}
+/* sizing svg icons */
+.form svg {
+  width: 17px;
+  margin-top: 3px;
+}
+
+
+/* ---------------------------------------------------------------*/
+
+/* From uiverse.io by @satyamchaudharydev */
+/* removing default style of button */
+
+.search button {
+  border: none;
+  background: none;
+  color: #8b8ba7;
+}
+/* styling of whole input container */
+.search {
+  --timing: 0.3s;
+  --width-of-input: 200px;
+  --height-of-input: 40px;
+  --border-height: 2px;
+  --input-bg: #fff;
+  --border-color: #007D17;
+  --border-radius: 30px;
+  --after-border-radius: 1px;
+  position: relative;
+  width: var(--width-of-input);
+  height: var(--height-of-input);
+  display: flex;
+  align-items: center;
+  padding-inline: 0.8em;
+  border-radius: var(--border-radius);
+  transition: border-radius 0.5s ease;
+  background: var(--input-bg,#fff);
+  border: 1px black solid;
+}
+/* styling of Input */
+.search .input {
+  border: none;
+  font-size: 0.9rem;
+  background-color: transparent;
+  width: 100%;
+  height: 100%;
+  padding-inline: 0.5em;
+  padding-block: 0.7em;
+}
+/* styling of animated border */
+.search:before {
+  content: "";
+  position: absolute;
+  background: var(--border-color);
+  transform: scaleX(0);
+  transform-origin: center;
+  width: 100%;
+  height: var(--border-height);
+  left: 0;
+  bottom: 0;
+  border-radius: 1px;
+  transition: transform var(--timing) ease;
+
+}
+/* Hover on Input */
+.search:focus-within {
+  border-radius: var(--after-border-radius);
+}
+
+.search input:focus {
+  outline: none;
+}
+/* here is code of animated border */
+.search:focus-within:before {
+  transform: scale(1);
+}
+/* styling of close button */
+/* == you can click the close button to remove text == */
+.search .reset {
+  border: none;
+  background: none;
+  opacity: 0;
+  visibility: hidden;
+}
+/* close button shown when typing */
+.search input:not(:placeholder-shown) ~ .reset {
+  opacity: 1;
+  visibility: visible;
+}
+/* sizing svg icons */
+.search svg {
+  width: 17px;
+  margin-top: 3px;
+}
+
+
+.demo-inline-calendar-card {
+  width: 220px;
+}
+
+
+/* ----------------------------------------- */
+.pagereserve4 div .radio-inputs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 350px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.pagereserve4 .radio-inputs > * {
+  margin: 6px;
+}
+
+.pagereserve4 div .radio-input:checked + .radio-tile {
+  border-color: #007D17;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  color: #007D17;
+}
+
+.pagereserve4 div .radio-input:checked + .radio-tile:before {
+  transform: scale(1);
+  opacity: 1;
+  background-color: #007D17;
+  border-color: #007D17;
+}
+
+.pagereserve4 div .radio-input:checked + .radio-tile .radio-icon svg {
+  fill: #007D17;
+}
+
+.pagereserve4 div .radio-input:checked + .radio-tile .radio-label {
+  color: #007D17;
+}
+
+.pagereserve4 div .radio-input:focus + .radio-tile {
+  border-color: #007D17;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1), 0 0 0 4px #b5c9fc;
+}
+
+.pagereserve4 div .radio-input:focus + .radio-tile:before {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.pagereserve4 .radio-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  min-height: 80px;
+  border-radius: 0.5rem;
+  border: 2px solid #b5bfd9;
+  background-color: #fff;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  transition: 0.15s ease;
+  cursor: pointer;
+  position: relative;
+}
+
+.pagereserve4 .radio-tile:before {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 0.75rem;
+  height: 0.75rem;
+  border: 2px solid #b5bfd9;
+  background-color: #fff;
+  border-radius: 50%;
+  top: 0.25rem;
+  left: 0.25rem;
+  opacity: 0;
+  transform: scale(0);
+  transition: 0.25s ease;
+}
+
+.pagereserve4 .radio-tile:hover {
+  border-color: #007D17;
+}
+
+.pagereserve4 .radio-tile:hover:before {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.pagereserve4 .radio-icon svg {
+  width: 2rem;
+  height: 2rem;
+  fill: #494949;
+}
+
+.pagereserve4 .radio-label {
+  color: #707070;
+  transition: 0.375s ease;
+  text-align: center;
+  font-size: 13px;
+}
+
+.pagereserve4 div .radio-input {
+  clip: rect(0 0 0 0);
+  -webkit-clip-path: inset(100%);
+  clip-path: inset(100%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+
+/* ------------------------------------------------- */
+
+#time .radio-input input {
+  display: none;
+}
+
+#time .radio-input {
+  --container_width: 400px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+  background-color: #fff;
+  color: #000000;
+  width: var(--container_width);
+  overflow: hidden;
+  border: 1px solid #007D17;
+}
+
+#time .radio-input label {
+  width: 100%;
+  padding: 10px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  font-weight: 600;
+  font-size: 14px;
+  color: #007D17;
+}
+
+#time .selection {
+  display: none;
+  position: absolute;
+  height: 100%;
+  width: 80px;
+  z-index: 0;
+  left: 0;
+  top: 0;
+  transition: .15s ease;
+}
+
+#time .radio-input label:has(input:checked) {
+  color: #fff;
+}
+
+#time .radio-input label:has(input:checked) ~ .selection {
+  background-color: #007D17;
+  display: inline-block;
+}
+
+#time .radio-input label:nth-child(1):has(input:checked) ~ .selection {
+  transform: translateX(0px);
+}
+
+#time .radio-input label:nth-child(2):has(input:checked) ~ .selection {
+  transform: translateX(80px);
+}
+
+#time .radio-input label:nth-child(3):has(input:checked) ~ .selection {
+  transform: translateX(160px);
+}
+#time .radio-input label:nth-child(4):has(input:checked) ~ .selection {
+  transform: translateX(240px);
+}
+
+
+
+
+
+/* ----------------------------------------------- */
+
+#pagereserve5 .container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#pagereserve5 .radio-tile-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+#pagereserve5 .radio-tile-group .input-container {
+  position: relative;
+  height: 80px;
+  width: 80px;
+  margin: 0.5rem;
+}
+
+#pagereserve5 .radio-tile-group .input-container .radio-button {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  cursor: pointer;
+}
+
+#pagereserve5  .radio-tile-group .input-container .radio-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  border: 2px solid #007D17;
+  border-radius: 5px;
+  padding: 1rem;
+  transition: transform 300ms ease;
+}
+
+
+
+#pagereserve5 .radio-tile-group .input-container .radio-tile-label {
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+
+
+}
+
+#pagereserve5 .radio-tile-group .input-container .radio-button:checked + .radio-tile {
+  border: 5px solid #007D17;
+  color: white;
+  transform: scale(1.1, 1.1);
+}
+
+
+
+/* ---------------------------------------- */
+/* Hide the default checkbox */
+#pagereserve6 .container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+#pagereserve6 .container {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  font-size: 20px;
+  user-select: none;
+}
+
+/* Create a custom checkbox */
+#pagereserve6 .checkmark {
+  position: relative;
+  top: 0;
+  left: 20px;
+  height: 1.3em;
+  width: 1.3em;
+  background-color: #e5e5e5;
+  border-radius: 50%;
+}
+
+/* When the checkbox is checked, add a blue background */
+#pagereserve6 .container input:checked ~ .checkmark {
+  background-color: seagreen;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+#pagereserve6 .checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+#pagereserve6 .container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+#pagereserve6 .container .checkmark:after {
+  left: 0.45em;
+  top: 0.25em;
+  width: 0.25em;
+  height: 0.5em;
+  border: solid white;
+  border-width: 0 0.15em 0.15em 0;
+  transform: rotate(45deg);
+}
+
+
+#partenaires-p{
+  color: #007D17;
+  font-weight: bolder;
+}
+
+.h1valider{
+  color: #007D17;
+  font-weight: bolder;
+  font-size: 2rem;
+  letter-spacing: 2px;
+}
+
+.h1name{
+  color: #007D17;
+  font-weight: bolder;
+  letter-spacing: 2px;
+}
+
+.h1nameV1{
+  color: #007D17;
+  font-weight: bolder;
+}
+
+#par{
+  font-weight: bolder;
+  letter-spacing: 2px;
+}
+
+.error{
+  color: #007D17;
+  font-weight: bolder;
+  letter-spacing: 2px;
+}
+
+
+
+

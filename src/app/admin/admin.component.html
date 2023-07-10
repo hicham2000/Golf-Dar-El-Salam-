@@ -1,0 +1,55 @@
+<div class="content d-flex justify-content-center " >
+  <div id="pagereserve1" class="col-6 d-flex flex-column justify-content-center align-items-center">
+
+    <div class="containerr ">
+      <div class="radio-tile-group">
+        <div class="input-container" id="rouge" (click)="setparcourname('Rouge')">
+          <input id="walk" class="radio-button" type="radio" name="radio-10" [checked]="parcourname == 'Rouge'">
+          <div class="radio-tile">
+            <label  class="radio-tile-label">Rouge</label>
+          </div>
+        </div>
+        <div class="input-container" id="bleu" (click)="setparcourname('Bleu')">
+          <input id="bike" class="radio-button" type="radio" name="radio-10">
+          <div class="radio-tile">
+            <label  class="radio-tile-label">Bleu</label>
+          </div>
+        </div>
+
+        <div class="input-container" id="vert" (click)="setparcourname('Vert')">
+          <input id="drive" class="radio-button" type="radio" name="radio-10">
+          <div class="radio-tile">
+            <label  class="radio-tile-label">Vert</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="">
+
+      <mat-form-field appearance="fill" >
+        <mat-label >Enter a date range</mat-label>
+        <mat-date-range-input [rangePicker]="picker" [min]="minDate" [dateFilter]="dateFilter">
+          <input  matStartDate placeholder="Start date" [(ngModel)]="startdate" >
+          <input  matEndDate placeholder="End date" [(ngModel)]="enddate" >
+        </mat-date-range-input>
+        <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
+        <mat-date-range-picker #picker ></mat-date-range-picker>
+      </mat-form-field>
+
+    </div>
+
+  </div>
+
+  <div id="date" class="col-6 " style="height: 100%">
+    <div class="d-flex justify-content-center align-items-center"  style="height: 100%">
+
+      <textarea placeholder="Type your Message Here...."  rows="7" cols="40" required [(ngModel)]="message"></textarea>
+
+    </div>
+
+  </div>
+
+
+
+</div>
+<button id="validerbtn" class="btn btn-success p-3" [disabled]="startdate == null || enddate == null || message == null || message== '' " (click)="valider()" >Valider</button>

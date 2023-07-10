@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule,NO_ERRORS_SCHEMA,CUSTOM_ELEMENTS_SCHEMA  } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -14,11 +14,15 @@ import {FormsModule} from "@angular/forms";
 import { FilterPipe } from './filter.pipe';
 import { DatePipe } from '@angular/common';
 import {HttpClientModule} from "@angular/common/http";
+import { AdminComponent } from './admin/admin.component';
+import { ReservationComponent } from './reservation/reservation.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    FilterPipe
+    FilterPipe,
+    AdminComponent,
+    ReservationComponent
   ],
   imports: [
     BrowserModule,
@@ -34,10 +38,14 @@ import {HttpClientModule} from "@angular/common/http";
     HttpClientModule
 
   ],
+
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'en-GB'},DatePipe,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],schemas: [
+    CUSTOM_ELEMENTS_SCHEMA,
+    NO_ERRORS_SCHEMA
+  ]
 })
 export class AppModule {
   selected!: Date | null;
