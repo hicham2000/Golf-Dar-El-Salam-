@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpRequest} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Subject,BehaviorSubject} from "rxjs";
 
 @Injectable({
@@ -14,34 +14,93 @@ export class RestapisService {
   deletereservationurl:string = "http://localhost:8080/Reservations/";
   updatereservationurl:string = "http://localhost:8080/Reservations/";
   adminReservation:string = "http://localhost:8080/AdminReservations";
+  partenaireblock:string = "http://localhost:8080/Reservations/";
+  userselectedbyname:string = "http://localhost:8080/utilisateurs/";
+  numberofcancelled:string = "http://localhost:8080/Reservationcancelled/";
+  numberofreservation:string = "http://localhost:8080/Reservationnumber/";
+
+
+
+  getnumberofcancelled(id:any){
+    const headers = new HttpHeaders({
+      'Authorization': 'Basic ' + btoa(`user1:12345`)
+    });
+
+    return this.http.get(this.numberofcancelled+id,{ headers })
+  }
+
+  getnumberofreservation(id:any){
+    const headers = new HttpHeaders({
+      'Authorization': 'Basic ' + btoa(`user1:12345`)
+    });
+
+    return this.http.get(this.numberofreservation+id,{ headers })
+  }
+
+  getusersbyname(name:string){
+    const headers = new HttpHeaders({
+      'Authorization': 'Basic ' + btoa(`user1:12345`)
+    });
+    return this.http.get(this.userselectedbyname+name,{ headers });
+
+  }
+  blockpartenaire(date:string){
+    const headers = new HttpHeaders({
+      'Authorization': 'Basic ' + btoa(`user1:12345`)
+    });
+
+    return this.http.get(this.partenaireblock+date,{ headers });
+}
 
   addReservation(body:any){
-  return this.http.post(this.Reservation,body);
+    const headers = new HttpHeaders({
+      'Authorization': 'Basic ' + btoa(`user1:12345`)
+    });
+  return this.http.post(this.Reservation,body,{ headers });
   }
 
 
   addAdminReservation(body:any){
-    return this.http.post(this.adminReservation,body);
+    const headers = new HttpHeaders({
+      'Authorization': 'Basic ' + btoa(`user1:12345`)
+    });
+    return this.http.post(this.adminReservation,body,{ headers });
   }
 
   getAdminReservations(){
-    return this.http.get(this.adminReservation);
+    const headers = new HttpHeaders({
+      'Authorization': 'Basic ' + btoa(`user1:12345`)
+    });
+    return this.http.get(this.adminReservation,{ headers });
   }
 
   getReservation(){
-    return this.http.get(this.Reservation);
+    const headers = new HttpHeaders({
+      'Authorization': 'Basic ' + btoa(`user1:12345`)
+    });
+
+    return this.http.get(this.Reservation,{ headers });
   }
 
   getUtilisateurs(){
-    return this.http.get(this.utilisateurs);
+    const headers = new HttpHeaders({
+      'Authorization': 'Basic ' + btoa(`user1:12345`)
+    });
+    return this.http.get(this.utilisateurs,{ headers });
   }
 
   deleteReservation(id:number){
-    return this.http.delete(this.deletereservationurl+id);
+    const headers = new HttpHeaders({
+      'Authorization': 'Basic ' + btoa(`user1:12345`)
+    });
+    return this.http.delete(this.deletereservationurl+id,{ headers });
   }
 
   updatereservation(id:number, reservation:any){
-    return this.http.put(this.updatereservationurl+id,reservation);
+    const headers = new HttpHeaders({
+      'Authorization': 'Basic ' + btoa(`user1:12345`)
+    });
+    return this.http.put(this.updatereservationurl+id,reservation,{ headers });
   }
 
   dates = new Subject<any[]>();

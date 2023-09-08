@@ -4,6 +4,9 @@ import {RestapisService} from "../restapis.service";
 import {DatePipe, formatDate} from "@angular/common";
 import {DateFilterFn, MatDateRangePicker} from "@angular/material/datepicker";
 
+import emailjs from "@emailjs/browser"
+import {faBackward, faFile, faPenToSquare, faTrash} from "@fortawesome/free-solid-svg-icons";
+
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
@@ -12,8 +15,13 @@ import {DateFilterFn, MatDateRangePicker} from "@angular/material/datepicker";
 export class AdminComponent implements OnInit{
 
   data:any;
+  faBackwardg=faBackward;
   data1:any[] = [];
   data2:any[] = [];
+
+  users:any = [];
+  cancellednumber:any = [];
+  reservationnumber:any = [];
   ngOnInit() {
     this.all = this.restapi.table2;
 
@@ -38,6 +46,22 @@ export class AdminComponent implements OnInit{
 
     });
 
+
+    this.restapi.getUtilisateurs().subscribe(data=>{
+      this.users = data;
+      for (let i= 0 ; i<this.users.length ; i++){
+        this.restapi.getnumberofcancelled(this.users[i].licence).subscribe(data=>{
+          this.restapi.getnumberofreservation(this.users[i].licence).subscribe(data2=>{
+
+            this.alldata.push({"licence": this.users[i].licence, "name": this.users[i].nom, "cancelled":data, "numberreserve":data2});
+
+          })
+        })
+      }
+    })
+
+
+
   }
 
   all:any[] = [];
@@ -52,8 +76,8 @@ message:any;
   parcourname:string = "Rouge";
   setparcourname(parcour:string){
   if (this.parcourname != parcour){
-    this.startdate = "";
-    this.enddate = "";
+    this.startdate = null;
+    this.enddate = null;
   }
     this.parcourname = parcour;
   }
@@ -61,6 +85,41 @@ message:any;
 
   minDate = new Date();
 
+  login = 0;
+  username:string = "";
+  password:string = "";
+  errorMessage:string = ""
+
+  loginuser(){
+    if(this.username == "admin" && this.password == "admin123"){
+      this.accuilpageshow = 1;
+      this.errorMessage = "";
+    }
+    else{
+      this.errorMessage = "Incorrect password. Please try again";
+    }
+  }
+
+  reserver(){
+    this.accuilpageshow = 0;
+    this.login = 1;
+  }
+
+
+  alldata:any = [];
+  alldata2:any = [];
+  sum:number = 0;
+  getsummary(){
+    this.sum = 1;
+
+
+
+
+
+
+
+
+  }
 
 
   // Callback function to disable weekends
@@ -141,5 +200,50 @@ message:any;
 
   }
 
+  resetPassword(){
+    this.login = -1;
 
+  }
+
+  emailtosend:string = "";
+
+  send(){
+    if (this.emailtosend == "taibhicham8@gmail.com"){
+      emailjs.init('SF24OZcGFhbL-jFzZ')
+      emailjs.send("service_sa3va6g","template_8632dcf",{
+        to_name: "Hicham",
+        message: "Your password is : admin123",
+        email: "taibhicham8@gmail.com",
+      });
+    }
+    this.login = 0;
+    this.emailtosend = "";
+  }
+
+  accuilpageshow = 0;
+
+  accueil(){
+this.sum = 0;
+    this.login = 0;
+    this.accuilpageshow = 1;
+this.alldata = [];
+    this.restapi.getUtilisateurs().subscribe(data=>{
+      this.users = data;
+      for (let i= 0 ; i<this.users.length ; i++){
+        this.restapi.getnumberofcancelled(this.users[i].licence).subscribe(data=>{
+          this.restapi.getnumberofreservation(this.users[i].licence).subscribe(data2=>{
+            this.alldata.push({"licence": this.users[i].licence, "name": this.users[i].nom, "cancelled":data, "numberreserve":data2});
+
+          })
+        })
+      }
+    })
+
+  }
+
+
+  protected readonly faFile = faFile;
+  protected readonly faPenToSquare = faPenToSquare;
+  protected readonly faTrash = faTrash;
+  protected readonly faBackward = faBackward;
 }

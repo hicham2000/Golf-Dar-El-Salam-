@@ -16,13 +16,15 @@ import { DatePipe } from '@angular/common';
 import {HttpClientModule} from "@angular/common/http";
 import { AdminComponent } from './admin/admin.component';
 import { ReservationComponent } from './reservation/reservation.component';
+import { SortByTimePipe } from './sort-by-time.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     FilterPipe,
     AdminComponent,
-    ReservationComponent
+    ReservationComponent,
+    SortByTimePipe
   ],
   imports: [
     BrowserModule,

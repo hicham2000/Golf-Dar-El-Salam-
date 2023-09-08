@@ -8,6 +8,7 @@ import { faBackward } from '@fortawesome/free-solid-svg-icons';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import { faFile } from '@fortawesome/free-solid-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import emailjs from "@emailjs/browser";
 
 @Component({
   selector: 'app-reservation',
@@ -20,6 +21,7 @@ export class ReservationComponent implements OnInit{
 
     this.restapi.getUtilisateurs().subscribe(data =>{
       this.users = data;
+      this.usersserched = data;
       for (let i = 0; i < this.users.length; i++) {
         const item = this.users[i];
         this.extractedData[item.licence] = item.nom;
@@ -34,7 +36,20 @@ export class ReservationComponent implements OnInit{
 
 
   }
+login:number = 0;
+  username:string = "";
+  password:string = "";
+  errorMessage:string = ""
 
+  loginuser(){
+    if(this.username == "user1" && this.password == "12345"){
+      this.login = 1 ;
+      this.errorMessage = "";
+    }
+    else{
+      this.errorMessage = "Incorrect password. Please try again";
+    }
+  }
   extractedData: { [key: number ]: string } = {};
   constructor(private datePipe: DatePipe,private restapi:RestapisService) {
     this.minDate = new Date(); // Set the minimum selectable date to today's date
@@ -203,6 +218,10 @@ export class ReservationComponent implements OnInit{
   data1:any[] = [];
   data2:any[] = [];
 
+  blockpartenaire:any[] = [];
+
+  blockpartenaire2:any[] = [];
+
   next(){
     this.restapi.getAdminReservations().subscribe(data=>{
       this.data = data;
@@ -255,10 +274,33 @@ export class ReservationComponent implements OnInit{
     }
 
 
+    if(this.pagereserve == 4){
+      this.blockpartenaire = [];
+      this.blockpartenaire2 = [];
+      const formattedDate: string = this.datePipe.transform(this.selected, 'dd MMM yyyy') || '';
+      this.restapi.blockpartenaire(this.removeSpaces(formattedDate)).subscribe(data => {
+        // @ts-ignore
+        this.blockpartenaire = data;
+        for (let i= 0; i<this.blockpartenaire.length ; i++){
+          this.blockpartenaire2.push(this.blockpartenaire[i].partenaire_1);
+          this.blockpartenaire2.push(this.blockpartenaire[i].partenaire_2);
+          this.blockpartenaire2.push(this.blockpartenaire[i].partenaire_3);
+        }
+        console.log(this.blockpartenaire2)
+      });
+
+
+    }
 
 
 
 
+
+
+  }
+
+  removeSpaces(inputString: string): string {
+    return inputString.split(' ').join('');
   }
 
   back() {
@@ -332,6 +374,33 @@ export class ReservationComponent implements OnInit{
     this.restapi.getReservation().subscribe(data=>{
       this.reservations = [];
       this.reservations = data;
+      console.log(this.reservations)
+      let tmp;
+
+      for(let j=0 ; j< this.reservations.length ; j++){
+        for(let i=0; i<this.reservations.length  ; i++){
+          if(parseInt(this.reservations[j].heure.split(":")[0]) > parseInt(this.reservations[i].heure.split(":")[0])){
+            tmp = this.reservations[j]
+            this.reservations[j] = this.reservations[i]
+            this.reservations[i] = tmp
+          }
+
+          else if(parseInt(this.reservations[j].heure.split(":")[0]) == parseInt(this.reservations[i].heure.split(":")[0])){
+            if(parseInt(this.reservations[j].heure.split(":")[1]) > parseInt(this.reservations[i].heure.split(":")[1])){
+              tmp = this.reservations[j]
+              this.reservations[j] = this.reservations[i]
+              this.reservations[i] = tmp
+            }
+
+          }
+
+
+
+        }
+      }
+
+      console.log(this.reservations)
+
 
 
     })
@@ -637,4 +706,60 @@ export class ReservationComponent implements OnInit{
     this.editpage = 0;
     this.pageliste = 1;
   }
+
+  emailtosend:string = "";
+  resetPassword(){
+    this.login = -1;
+  }
+
+  send(){
+    if (this.emailtosend == "taibhicham49@gmail.com"){
+      emailjs.init('SF24OZcGFhbL-jFzZ')
+      emailjs.send("service_sa3va6g","template_8632dcf",{
+        to_name: "Hicham2",
+        message: "Your password is : 12345",
+        email: "taibhicham49@gmail.com",
+      });
+    }
+    this.login = 0;
+    this.emailtosend = "";
+  }
+
+  usersserched:any = []
+
+
+  usernametoseache:string = "";
+  serche(){
+
+    this.usersserched = [];
+    this.licence = 0;
+    this.restapi.getusersbyname(this.usernametoseache).subscribe(data => {
+      this.usersserched = data;
+      console.log(this.usersserched)
+    })
+
+    if(this.usernametoseache == ""){
+      this.usersserched = this.users.reverse()
+    }
+  }
+
+
+  makelicence(licence:number,nom:string){
+    this.usernametoseache = nom;
+    this.licence = licence;
+  }
+
+  dateselected(){
+    this.SearchDate = this.transformDateString(this.SearchDate)
+    console.log(this.SearchDate)
+  }
+
+  transformDateString(dateString: string): any {
+    // Parse the input date string
+    const date = new Date(dateString);
+
+    // Format the date using DatePipe
+    return this.datePipe.transform(date, 'dd MMM yyyy');
+  }
+
 }
